@@ -1,50 +1,58 @@
-## 任意值 (Any)
+## 定義
 
-任意值用来表示允许赋值为任意类型。
-
-## 什么是任意类型
-
-普通类型定义后是不允许修改类型的
+任意值（Any）：用来表示允许赋值为任意类型的類型。
 
 ```typescript
-let myName: string = 'Allen Yu'
-myName = 28
+let let something: any = '666'
+```
 
-// error TS2322: Type '28' is not assignable to type 'string'.
+变量如果在声明的时候，未指定其类型，那么它会被识别为任意值类型：
+
+```typescript
+let something;
+something = '666'
+
+// 與let let something: any = '666'是等價的
+```
+
+
+## 特點
+
+聲明类型且賦值后，是不允许重新賦值為其他類型的值（`null` 和 `undefined` 是所有类型的子类型, 所以是可以賦值為`null` 或 `undefined`）
+
+```typescript
+let str: String = '123'
+str = null
+str = undefined
+str = 123
+
+// - error TS2322: Type '123' is not assignable to type 'String'.
 ```
 
 但如果是 `any` 类型，则允许被赋值为任意类型
 
 ```typescript
-let myName: any = 'Allen Yu'
-myName = 28
-myName = true
+let str: any = '123'
+str = 123
 ```
 
-## 任意值的作用
+## 属性和方法
 
-在对现有代码进行改写的时候，`any` 类型是十分有用的，它允许你在编译时可选择的包含或者移除类型检查，同时也能调用任意方法，即使方法不存在
+定義的任意值是可以訪問任何屬性的：
 
 ```typescript
-let myName: any = 'Allen Yu'
-myName.toFixed()
-myName.split('')
+let dog: any = 'Hachi'
+console.log(dog.name)
+console.log(dog.dog.firstName)
 ```
 
-## 未声明类型的变量
 
-变量如果在声明的时候，未制定类型，那么它会被识别为任意值类型。
+也可以调用任何方法：
 
 ```typescript
-let something
-
-something = 123
-something = 'seven'
-
-something.setName()
+let dog: any = 'Hachi'
+console.log(dog.eat())
+console.log(dog.run())
 ```
 
-## 参考
-
--   [TypeScript 入门教程 - 任意值](https://ts.xcatliu.com/basics/any)
--   [TypeScript 中文网 - 基础类型 - Any](https://www.tslang.cn/docs/handbook/basic-types.html)
+<font color=fa9003>不建議</font>對any使用不存在的屬性或者方法，因爲編譯成JavaScript運行后會報錯。
