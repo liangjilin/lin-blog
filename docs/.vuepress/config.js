@@ -3,7 +3,7 @@ module.exports = {
   title: 'ji_lin',
   description: 'Vuepress blog demo',
   head: [
-    ['link', { rel: 'icon', href: '/vue-logo.png' }]
+    ['link', { rel: 'icon', href: '/favicon.ico' }]
   ],
   themeConfig: {
   	// 你的GitHub仓库
