@@ -1,4 +1,4 @@
-## 原始数据类型 (Primitive Data Types)
+## 原始数据类型
 
 JavaScript 的类型分为两种：原始数据类型（[Primitive Data Types](https://developer.mozilla.org/en-US/docs/Glossary/Primitive)）和对象类型（Object Types）。
 
