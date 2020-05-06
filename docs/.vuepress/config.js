@@ -28,7 +28,10 @@ module.exports = {
               children: [
                   { title: '原始数据类型', path: '/ts/base/primitive-data-types' },
                   { title: '任意值', path: '/ts/base/any' },
-                  { title: '类型推论', path: '/ts/base/type-inference' }
+                  { title: '类型推论', path: '/ts/base/type-inference' },
+                  { title: '联合类型', path: '/ts/base/union-types' },
+                  { title: '对象的类型——接口', path: '/ts/base/interfaces' },
+                  { title: '数组的类型', path: '/ts/base/array' }
               ]
           }
       ]
