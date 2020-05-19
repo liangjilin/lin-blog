@@ -37,7 +37,7 @@ console.log(some.length) // TS2339: Property 'length' does not exist on type 'st
 some.toString()
 ```
 
-x不管是s`tring`還是`number`都不會出錯了
+x不管是`string`還是`number`都不會出錯了
 
 ## 類型推斷
 

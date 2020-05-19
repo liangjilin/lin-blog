@@ -30,8 +30,10 @@ module.exports = {
                   { title: '任意值', path: '/ts/base/any' },
                   { title: '类型推论', path: '/ts/base/type-inference' },
                   { title: '联合类型', path: '/ts/base/union-types' },
-                  { title: '对象的类型——接口', path: '/ts/base/interfaces' },
-                  { title: '数组的类型', path: '/ts/base/array' }
+                  { title: '对象的类型—接口', path: '/ts/base/interfaces' },
+                  { title: '数组的类型', path: '/ts/base/array' },
+                  { title: '函數的类型', path: '/ts/base/typeFun' },
+                  { title: '类型的断言', path: '/ts/base/typeAssertion' }
               ]
           }
       ]
