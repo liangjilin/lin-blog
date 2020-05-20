@@ -13,7 +13,7 @@
 
 ## 用途
 
-**将一个联合类型断言为其中一个类型**
+**将一个联合类型断言为其中一个类型:**
 
 我们之前学习过联合类型: 当 `TypeScript` 不确定一个联合类型的变量到底是哪个类型的时候，我们只能访问此联合类型的所有类型中共有的属性或方法：
 
@@ -50,7 +50,7 @@ console.log(getLength(myAge))  // undefined，如果我們調用的不是length�
 ```
 `TypeScript` 编译器信任了我们的断言（认为我们传在`myAge`就是`string`），故在调用`getLength(myAge)`时没有编译错误
 
-**将一个父类断言为更加具体的子类**
+**将一个父类断言为更加具体的子类:**
 
 当类之间有继承关系时，类型断言也是很常见的:
 
@@ -73,7 +73,7 @@ function isApiError(error: Error) {
 使用 `instanceof` 更加合适，因为 `ApiError` 是一个 `JavaScript` 的类，能够通过 instanceof 来判断 error 是否是它的实例。
 <font color=fa9003>注意：</font>有的情况下 `ApiError` 和 `HttpError` 不是一个真正的类，而只是一个 `TypeScript` 的接口（`interface`），接口是一个类型，不是一个真正的值，它在编译结果中会被删除，当然就无法使用 `instanceof` 来做运行时判断了
 
-**将任何一个类型断言为 any**
+**将任何一个类型断言为 any:**
 
 当我们引用一个在此类型上不存在的属性或方法时，就会报错：
 
@@ -104,7 +104,7 @@ window.foo = 1;
 总之，一方面不能滥用 `as any`，另一方面也不要完全否定它的作用，我们需要在类型的严格性和开发的便利性之间掌握平衡（这也是[TypeScript 的设计理念](https://github.com/Microsoft/TypeScript/wiki/TypeScript-Design-Goals)之一），才能发挥出 `TypeScript` 最大的价值。
 
 
-**将 any 断言为一个具体的类型**
+**将 any 断言为一个具体的类型:**
 
 在日常的开发中，我们不可避免的需要处理 `any` 类型的变量，它们可能是由于第三方库未能定义好自己的类型，也有可能是历史遗留的或其他人编写的烂代码，还可能是受到 `TypeScript` 类型系统的限制而无法精确定义类型的场景。
 
@@ -139,13 +139,55 @@ tom.run();
 
 ## 类型断言的限制
 
+类型断言的限制: 并不是任何一个类型都可以被断言为任何另一个类型。
+具体来说，若 `A` 兼容 `B`，那么 `A` 能够被断言为 `B`，`B` 也能被断言为 `A`。
+
+先讲一个重要在词，**兼容**：
+
+```typescript
+interface Animal {
+    name: string;
+}
+interface Cat extends Animal {
+    run(): void;
+}
+```
+`Cat` 包含了 `Animal` 中的所有属性, 这时`Animal` 兼容 `Cat`
+
+
+当`Animal` 兼容 `Cat` 时，它们就可以互相进行类型断言了：
+
+```typescript
+interface Animal {
+    name: string;
+}
+interface Cat {
+    name: string;
+    run(): void;
+}
+
+function testAnimal(animal: Animal) {
+    return (animal as Cat);
+}
+function testCat(cat: Cat) {
+    return (cat as Animal);
+}
+```
+总结：
+
+* 联合类型可以被断言为其中一个类型
+* 父类可以被断言为子类
+* 任何类型都可以被断言为 any
+* any 可以被断言为任何类型
+* 要使得 A 能够被断言为 B，只需要 A 兼容 B 或 B 兼容 A 即可
+
 
 ## 双重断言
 
 既然：
 
-*任何类型都可以被断言为 `any`
-*`any` 可以被断言为任何类型
+* 任何类型都可以被断言为 `any`
+* `any` 可以被断言为任何类型
 
 ```typescript
 interface Cat {
@@ -178,6 +220,7 @@ toBoolean(1); // 返回值为 1, 而不是 true
 
 在上面的例子中，将 `something` 断言为 `boolean` 虽然可以通过编译，但是并没有什么用(类型断言不是类型转换，它不会真的影响到变量的类型)，
 若要进行类型转换，需要直接调用类型转换的方法：
+
 ```typescript
 function toBoolean(something: any): boolean {
     return Boolean(something);
@@ -188,6 +231,42 @@ toBoolean(1); // 返回值为 true
 
 
 ## 类型断言 vs 类型声明
+
+可以使用类型断言进行类型声明：
+
+```typescript
+interface Animal {
+    name: string;
+}
+interface Cat {
+    name: string;
+    run(): void;
+}
+
+let tom: Cat = {
+    name: 'Tom',
+    run: () => { console.log('run') }
+};
+
+let corn : Cat = {
+    name: 'corn'
+}
+
+
+let animal = tom as Cat
+
+let animal2: Cat = tom
+
+let animal3: Animal = tom
+
+let animal4: Cat = corn  // 报错：error TS2741: Property 'run' is missing in type '{ name: string; }' but required in type 'Cat'.
+```
+
+总的来说，现在有接口`A`、`B`，`C`（通过接口`A`定义的变量），
+
+要使得可以这样定义 `let D = C as B` 要满足 `A` 兼容 `B`(或`B` 兼容 `A`)，故可以将 `C` 断言为 `B` 赋值给 `D`
+
+要使得可以这样定义 `let D: B = C` 要满足 `B` 兼容 `A`
 
 
 ## 类型断言 vs 范型
