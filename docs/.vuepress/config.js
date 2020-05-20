@@ -33,7 +33,9 @@ module.exports = {
                   { title: '对象的类型—接口', path: '/ts/base/interfaces' },
                   { title: '数组的类型', path: '/ts/base/array' },
                   { title: '函數的类型', path: '/ts/base/typeFun' },
-                  { title: '类型的断言', path: '/ts/base/typeAssertion' }
+                  { title: '类型的断言', path: '/ts/base/typeAssertion' },
+                  { title: '声明文件', path: '/ts/base/declaration-files' },
+                  { title: '内置对象', path: '/ts/base/built-in-objects' }
               ]
           }
       ]
