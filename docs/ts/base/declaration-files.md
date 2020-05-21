@@ -103,7 +103,7 @@ npm 包的声明文件主要有以下几种语法：
 相比于 `npm` 包的类型声明文件，我们需要额外声明一个全局变量，为了实现这种方式，`ts` 提供了一个新语法 `export as namespace`。
 
 
-### 直接扩展全局变量
+<!-- ### 直接扩展全局变量
 
 
 ### 在 npm 包或 UMD 库中扩展全局变量
@@ -112,9 +112,52 @@ npm 包的声明文件主要有以下几种语法：
 
 ### 声明文件中的依赖
 
-### 自动生成声明文件
+### 自动生成声明文件 -->
 
 ## 发布声明文件
 
+发布声明文件有两种方案：
+
+* 将声明文件和源码放在一起
+* 将声明文件发布到 `@types` 下
+
 ### 将声明文件和源码放在一起
+
+tsc 自动生成的:
+无需做任何其他配置，只需要把编译好的文件也发布到 npm 上，使用方就可以获取到类型提示了。
+
+手动写的声明文件，那么需要满足以下条件之一，才能被正确的识别：
+
+* 给 `package.json` 中的 `types` 或 `typings` 字段指定一个类型声明文件地址
+* 在项目根目录下，编写一个 `index.d.ts` 文件
+* 针对入口文件（`package.json` 中的 `main` 字段指定的入口文件），编写一个同名不同后缀的 `.d.ts` 文件
+
+给 `package.json` 中的 `types` 或 `typings` 字段指定一个类型声明文件地址:
+
+```typescript
+{
+    "name": "foo",
+    "version": "1.0.0",
+    "main": "lib/index.js",
+    "types": "foo.d.ts",
+}
+```
+指定了 `types` 为 `foo.d.ts` 之后，导入此库的时候，就会去找 `foo.d.ts` 作为此库的类型声明文件了。
+如果没有指定 `types` 或 `typings`，那么就会在根目录下寻找 `index.d.ts` 文件，将它视为此库的类型声明文件。
+
+如果没有找到 `index.d.ts` 文件，那么就会寻找入口文件（`package.json` 中的 `main` 字段指定的入口文件）是否存在对应同名不同后缀的 `.d.ts` 文件:
+
+```typescript
+// package.json
+{
+    "name": "foo",
+    "version": "1.0.0",
+    "main": "lib/index.js"
+}
+```
+
 ### 将声明文件发布到 `@types` 下
+
+要将声明文件发布到 `@types` 下，就需要给 [DefinitelyTyped](https://github.com/DefinitelyTyped/DefinitelyTyped/) 创建一个 `pull-request`，其中包含了类型声明文件，测试代码，以及 `tsconfig.json` 等。
+
+如果大家需要将声明文件发布到 `@types` 下，可以参考[提交的 pull-request](https://github.com/DefinitelyTyped/DefinitelyTyped/pull/30336/files) 。
