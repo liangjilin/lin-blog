@@ -37,6 +37,15 @@ module.exports = {
                   { title: '声明文件', path: '/ts/base/declaration-files' },
                   { title: '内置对象', path: '/ts/base/built-in-objects' }
               ]
+          },
+          {
+              title: '进阶',
+              collapsable: false,
+              children: [
+                  { title: '类型别名', path: '/ts/advanced/type-aliases' },
+                  { title: '字符串字面量类型', path: '/ts/advanced/string-literal-types' },
+                  { title: '元组 ', path: '/ts/advanced/tuple' }
+              ]
           }
       ]
     }
