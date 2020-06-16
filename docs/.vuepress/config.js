@@ -44,7 +44,10 @@ module.exports = {
               children: [
                   { title: '类型别名', path: '/ts/advanced/type-aliases' },
                   { title: '字符串字面量类型', path: '/ts/advanced/string-literal-types' },
-                  { title: '元组 ', path: '/ts/advanced/tuple' }
+                  { title: '元组', path: '/ts/advanced/tuple' },
+                  { title: '枚举', path: '/ts/advanced/enum' },
+                  { title: '类', path: '/ts/advanced/class' },
+                  { title: '类与接口', path: '/ts/advanced/class-and-interfaces' }
               ]
           }
       ]
