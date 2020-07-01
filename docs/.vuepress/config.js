@@ -47,7 +47,9 @@ module.exports = {
                   { title: '元组', path: '/ts/advanced/tuple' },
                   { title: '枚举', path: '/ts/advanced/enum' },
                   { title: '类', path: '/ts/advanced/class' },
-                  { title: '类与接口', path: '/ts/advanced/class-and-interfaces' }
+                  { title: '类与接口', path: '/ts/advanced/class-and-interfaces' },
+                  { title: '泛型', path: '/ts/advanced/generics' },
+                  { title: '声明合并', path: '/ts/advanced/declaration-merging' }
               ]
           }
       ]
